@@ -71,8 +71,10 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Bypass Firebase API / Firestore / Auth / Render / Cashfree calls
+    // Bypass local development, Firebase API, Firestore, Auth, Render, and Cashfree
     if (
+        url.hostname === 'localhost' ||
+        url.hostname === '127.0.0.1' ||
         url.hostname.includes('firebaseio.com') ||
         url.hostname.includes('googleapis.com') ||
         url.hostname.includes('identitytoolkit') ||
