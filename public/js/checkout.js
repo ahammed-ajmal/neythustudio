@@ -2,7 +2,7 @@ import { auth, db } from './firebase.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { clearCart, getCartTotal } from './cart.js';
-import { CONFIG } from './config.js';
+import { CONFIG } from './config.js?v=2.1';
 
 const checkoutForm = document.getElementById('checkout-form');
 const zipInput = document.getElementById('zip');

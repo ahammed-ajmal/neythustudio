@@ -1,4 +1,4 @@
-const CACHE_NAME = 'neythu-studio-v7';
+const CACHE_NAME = 'neythu-studio-v8';
 
 const STATIC_ASSETS = [
     './',
@@ -71,12 +71,14 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Bypass Firebase API / Firestore / Auth calls
+    // Bypass Firebase API / Firestore / Auth / Render / Cashfree calls
     if (
         url.hostname.includes('firebaseio.com') ||
         url.hostname.includes('googleapis.com') ||
         url.hostname.includes('identitytoolkit') ||
-        url.hostname.includes('firestore')
+        url.hostname.includes('firestore') ||
+        url.hostname.includes('onrender.com') ||
+        url.hostname.includes('cashfree.com')
     ) {
         return;
     }
