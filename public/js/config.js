@@ -5,5 +5,5 @@ export const CONFIG = {
     BACKEND_URL: 'https://neythustudio.onrender.com',
 
     // Cashfree Environment: "sandbox" (Test Mode) or "production" (Live Mode)
-    CASHFREE_MODE: 'sandbox'
+    CASHFREE_MODE: 'production'
 };
