@@ -490,7 +490,7 @@ if (checkoutForm) {
             
             const checkoutOptions = {
                 paymentSessionId: data.paymentSessionId,
-                redirectTarget: "_modal"
+                redirectTarget: "_self"
             };
 
             cashfree.checkout(checkoutOptions).then(async (result) => {
