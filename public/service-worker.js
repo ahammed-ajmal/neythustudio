@@ -1,4 +1,4 @@
-const CACHE_NAME = 'neythu-studio-v8';
+const CACHE_NAME = 'neythu-studio-v9';
 
 const STATIC_ASSETS = [
     './',
