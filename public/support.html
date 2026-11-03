@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crochet Care & Support Studio | NEYTHU STUDIO</title>
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://neythustudio.in/support.html">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background-color: var(--primary-sage-light);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-sage);
+        }
+
+        .page-header h1 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .support-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .support-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(39, 51, 37, 0.08);
+            border-color: var(--primary-sage);
+        }
+
+        .support-icon {
+            font-size: 2.5rem;
+            color: var(--primary-sage-dark);
+            margin-bottom: 20px;
+        }
+
+        .support-card h3 {
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .support-card p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .support-card a {
+            color: var(--primary-sage-dark);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+    </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="shop.html" class="nav-link">Shop</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html" id="auth-link"><i class="fa-regular fa-user"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <div class="page-header">
+        <h1>How can our crochet studio help?</h1>
+        <p style="color: var(--text-light);">Browse guides on yarn washing, custom sizing commissions, and order delivery.</p>
+    </div>
+
+    <div class="support-grid">
+        <div class="support-card">
+            <i class="fa-solid fa-hand-holding-droplet support-icon"></i>
+            <h3>Yarn Care & Washing</h3>
+            <p>Step-by-step instructions on washing, drying flat, and preserving your stitches.</p>
+            <a href="faq.html">View Care Guide</a>
+        </div>
+        <div class="support-card">
+            <i class="fa-solid fa-wand-magic-sparkles support-icon"></i>
+            <h3>Custom Commissions</h3>
+            <p>Request custom bust/waist measurements, personalized lengths, or custom colors.</p>
+            <a href="contact.html">Request Custom Piece</a>
+        </div>
+        <div class="support-card">
+            <i class="fa-solid fa-truck-fast support-icon"></i>
+            <h3>Handmade Dispatch</h3>
+            <p>Learn about crafting timelines for ready-to-ship vs made-to-order crochet.</p>
+            <a href="shipping-policy.html">Shipping Guidelines</a>
+        </div>
+        <div class="support-card">
+            <i class="fa-solid fa-arrow-rotate-left support-icon"></i>
+            <h3>No Return Policy</h3>
+            <p>All sales are final. Replacements provided solely for verified transit damage reported within 24 hours.</p>
+            <a href="return-refund-policy.html">Return Guidelines</a>
+        </div>
+        <div class="support-card">
+            <i class="fa-solid fa-ban support-icon"></i>
+            <h3>No Cancellation Policy</h3>
+            <p>Orders cannot be cancelled once placed due to immediate raw yarn allocation & artisan queuing.</p>
+            <a href="cancellation-policy.html">Cancellation Guidelines</a>
+        </div>
+        <div class="support-card">
+            <i class="fa-solid fa-envelope-open-text support-icon"></i>
+            <h3>Talk to the Artisan</h3>
+            <p>Questions about yarn composition, fit, or wholesale? We'd love to assist.</p>
+            <a href="contact.html">Get in Touch</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/neythustudio" target="_blank" rel="noopener" aria-label="Follow NEYTHU STUDIO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                    <li><a href="contact.html">Custom Orders</a></li>
+                    <li><a href="faq.html">Care & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="cancellation-policy.html">Cancellation Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <a href="terms.html">Terms & Conditions</a> | <a href="privacy.html">Privacy Policy</a> | <a href="shipping-policy.html">Shipping Policy</a> | <a href="return-refund-policy.html">Return Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/cart.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

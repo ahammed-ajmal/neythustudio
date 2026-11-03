@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: neythu-studio-backend
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: CASHFREE_ENV
+        value: sandbox
+      - key: CASHFREE_APP_ID
+        sync: false
+      - key: CASHFREE_SECRET_KEY
+        sync: false
+      - key: CASHFREE_API_VERSION
+        value: 2023-08-01
+      - key: FRONTEND_URL
+        value: https://neythu-studio.web.app
+      - key: FIREBASE_SERVICE_ACCOUNT
+        sync: false

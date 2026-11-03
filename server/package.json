@@ -1,0 +1,19 @@
+{
+  "name": "neythu-studio-server",
+  "version": "1.0.0",
+  "description": "Render backend server for Neythu Studio - Cashfree Payment Gateway & Firebase",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.6.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Our Craft | NEYTHU STUDIO Handmade Crochet</title>
+    <meta name="description" content="Discover the story behind NEYTHU STUDIO. Learn about our commitment to sustainable natural yarn, slow fashion, and authentic crochet artistry.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://neythustudio.in/about.html">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="About Our Craft | NEYTHU STUDIO">
+    <meta property="og:description" content="Discover slow fashion, natural yarns, and handcrafted crochet artistry at NEYTHU STUDIO.">
+    <meta property="og:image" content="https://neythustudio.in/images/hero_img.jpeg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background-color: var(--primary-sage-light);
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-sage);
+        }
+
+        .page-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(39, 51, 37, 0.08);
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            color: var(--primary-sage-dark);
+        }
+
+        .craft-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .craft-card {
+            background: var(--cosmic-latte-soft);
+            border: 1px solid var(--border-light);
+            padding: 22px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .craft-card i {
+            font-size: 1.8rem;
+            color: var(--primary-sage-dark);
+            margin-bottom: 12px;
+        }
+
+        .craft-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .craft-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li class="desktop-only-nav"><a href="shop.html" class="nav-link">Shop</a></li>
+            <li class="mobile-only-nav">
+                <a href="shop.html?sort=newest" class="nav-link nav-highlight-link">
+                    <span><i class="fa-solid fa-sparkles" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>New Arrivals</span>
+                    <span class="nav-badge-new">NEW</span>
+                </a>
+            </li>
+            <li class="mobile-only-nav nav-accordion-item">
+                <button type="button" class="nav-accordion-btn" aria-expanded="false">
+                    <span><i class="fa-solid fa-bag-shopping" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>Shop</span>
+                    <i class="fa-solid fa-chevron-down nav-chevron"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="shop.html" class="sub-link">
+                        <i class="fa-solid fa-border-all"></i> Shop All
+                    </a>
+                    <div class="sub-category-group">
+                        <span class="sub-category-title">Shop by Category</span>
+                        <div class="sub-category-grid">
+                            <a href="shop.html?category=Crochet Tops" class="sub-cat-pill">Tops</a>
+                            <a href="shop.html?category=Crochet Dresses" class="sub-cat-pill">Dresses</a>
+                            <a href="shop.html?category=Granny Square" class="sub-cat-pill">Granny Square</a>
+                            <a href="shop.html?category=Crochet Bags" class="sub-cat-pill">Bags & Totes</a>
+                            <a href="shop.html?category=Crochet Accessories" class="sub-cat-pill">Accessories</a>
+                        </div>
+                    </div>
+                    <div class="sub-category-group">
+                        <span class="sub-category-title">Collections</span>
+                        <div class="sub-category-grid">
+                            <a href="shop.html?type=Summer Mesh" class="sub-cat-pill">Summer Mesh</a>
+                            <a href="shop.html?type=Hand-Hooked Classic" class="sub-cat-pill">Hand-Hooked Classic</a>
+                            <a href="shop.html?type=Ribbed Crochet" class="sub-cat-pill">Ribbed Crochet</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="mobile-only-nav nav-accordion-item">
+                <button type="button" class="nav-accordion-btn" aria-expanded="false">
+                    <span><i class="fa-solid fa-book-open" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>Journal</span>
+                    <i class="fa-solid fa-chevron-down nav-chevron"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="about.html#what-is-crochet" class="sub-link">
+                        <i class="fa-solid fa-feather-pointed"></i> What is Crochet?
+                    </a>
+                </div>
+            </li>
+            <li><a href="about.html" class="nav-link" style="border-bottom: 2px solid var(--primary-sage);">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html" id="auth-link"><i class="fa-regular fa-user"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 class="page-title">The Art of the Loop</h1>
+        <p style="color: var(--text-light);">Every stitch tells a story of patience, passion, and natural yarn.</p>
+    </header>
+
+    <!-- Content -->
+    <div class="content-container">
+        <img src="https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=2000&auto=format&fit=crop"
+            alt="Handcrafted Crochet Yarn Studio" class="about-image">
+
+        <h2>Who We Are — Artisans of Slow Fashion</h2>
+        <p>NEYTHU STUDIO was founded on the quiet, meditative beauty of handcrafted creation. In an era dominated by rapid mass manufacturing and synthetic fast fashion, we chose the slower, more soulful path of artisanal crochet. Every garment, bag, and accessory in our studio begins as a simple skein of natural yarn and is brought to life loop by loop, knot by knot, using traditional hooks and artisan precision.</p>
+
+        <div class="craft-highlights">
+            <div class="craft-card">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <h4>100% Handcrafted</h4>
+                <p>Individually hooked stitch by stitch with zero automated machinery.</p>
+            </div>
+            <div class="craft-card">
+                <i class="fa-solid fa-leaf"></i>
+                <h4>Sustainable Fibers</h4>
+                <p>Pure breathable cotton, linen blends, and eco-friendly natural yarns.</p>
+            </div>
+            <div class="craft-card">
+                <i class="fa-solid fa-certificate"></i>
+                <h4>Heirloom Quality</h4>
+                <p>Timeless textures made to be cherished and passed through generations.</p>
+            </div>
+        </div>
+
+        <h2>Our Craft Philosophy — Mindful & Sustainable</h2>
+        <p>We honor the timeless principles of slow fashion. We consciously select soft organic cottons, breathable bamboo blends, and skin-friendly natural fibers that feel soothing against your skin while respecting our earth. Because every piece is hand-looped to order, zero fabric cuttings end up in landfills. What you receive isn't just clothing; it is a wearable piece of textile art built to bring joy across seasons.</p>
+
+        <div id="what-is-crochet" class="about-story-section" style="scroll-margin-top: 100px; margin: 32px 0; padding: 26px; background: rgba(151, 164, 109, 0.08); border-radius: 16px; border: 1px solid var(--border-light);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <i class="fa-solid fa-feather-pointed" style="color: var(--primary-sage-dark); font-size: 1.5rem;"></i>
+                <h2 style="margin: 0; font-size: 1.45rem;">What is Crochet? — The Impossible Machine</h2>
+            </div>
+            <p style="margin-bottom: 12px; font-size: 1rem; line-height: 1.7; color: var(--text-dark);">
+                Did you know? Unlike knitting, <strong>no machine on earth can replicate authentic crochet stitches</strong>. Every single loop, chain, and knot in existence can only be created by skilled human hands using a traditional crochet hook.
+            </p>
+            <p style="margin: 0; font-size: 0.95rem; line-height: 1.7; color: var(--text-dark);">
+                When you wear a NEYTHU STUDIO piece, you are carrying hours of human touch, slow-fashion artistry, and pure textile heritage that fast-fashion factories can never manufacture.
+            </p>
+        </div>
+
+        <h2>The NEYTHU STUDIO Stitch Promise</h2>
+        <p>When you wear a NEYTHU STUDIO crochet piece, you carry hours of dedicated human touch, passion, and artistry. From breezy open-knit summer cardigans and vintage-inspired granny square tops to intricately textured tote bags and cozy accessories, our creations are designed to bring authentic warmth, tactile beauty, and individuality to your life.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/neythustudio" target="_blank" rel="noopener" aria-label="Follow NEYTHU STUDIO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                    <li><a href="contact.html">Custom Orders</a></li>
+                    <li><a href="faq.html">Care & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="cancellation-policy.html">Cancellation Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <a href="terms.html">Terms & Conditions</a> | <a href="privacy.html">Privacy Policy</a> | <a href="shipping-policy.html">Shipping Policy</a> | <a href="return-refund-policy.html">Return Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/cart.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

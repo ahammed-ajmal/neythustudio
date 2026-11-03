@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crochet Studio Admin | NEYTHU STUDIO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-container {
+            max-width: var(--container-width);
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--text-dark);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-sage-dark);
+            color: var(--cosmic-latte);
+            border-color: var(--primary-sage-dark);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Product Form */
+        .product-form {
+            background: var(--bg-white);
+            padding: 30px;
+            border: 1px solid var(--border-light);
+            max-width: 650px;
+            margin-bottom: 40px;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        }
+
+        .product-form h3 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .product-list {
+            margin-top: 40px;
+        }
+
+        .product-list h3 {
+            margin-bottom: 15px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .product-table th,
+        .product-table td {
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        .product-table th {
+            background-color: #fafafa;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .btn-action-edit {
+            color: var(--primary-sage-dark);
+            background: #fff;
+            border: 1px solid var(--primary-sage);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-right: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-action-edit:hover {
+            background: var(--primary-sage-dark);
+            color: #fff;
+        }
+
+        .btn-action-delete {
+            color: #d32f2f;
+            background: #fff;
+            border: 1px solid #ffcdd2;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-action-delete:hover {
+            background: #d32f2f;
+            color: #fff;
+        }
+
+        /* Edit Product Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-dialog {
+            background: #fff;
+            width: 100%;
+            max-width: 650px;
+            max-height: calc(100vh - 40px);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.2s ease-out;
+            margin: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-light);
+            background: #fafafa;
+            flex-shrink: 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: #888;
+            cursor: pointer;
+            padding: 0 5px;
+            transition: color 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            color: #000;
+        }
+
+        #edit-product-form {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+            min-height: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--primary-sage);
+            border-radius: 3px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-sage-dark);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-light);
+            background: #fafafa;
+            flex-shrink: 0;
+        }
+
+        .btn-secondary-outline {
+            background: transparent;
+            border: 1px solid #ccc;
+            color: var(--text-dark);
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary-outline:hover {
+            background: #eee;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .modal-grid-2 {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Orders */
+        .order-card {
+            border: 1px solid var(--border-light);
+            padding: 22px;
+            margin-bottom: 22px;
+            background: var(--bg-white);
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .order-card:hover {
+            border-color: #d0d7d3;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .order-status.status-pending {
+            background-color: #fff7ed;
+            color: #c2410c;
+            border: 1px solid #ffedd5;
+        }
+
+        .order-status.status-processing {
+            background-color: #faf5ff;
+            color: #7e22ce;
+            border: 1px solid #f3e8ff;
+        }
+
+        .order-status.status-booked {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+
+        .order-status.status-shipped {
+            background-color: #ecfeff;
+            color: #0e7490;
+            border: 1px solid #cffafe;
+        }
+
+        .order-status.status-delivered {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .order-status.status-cancelled {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fee2e2;
+        }
+
+        /* Order Filter Buttons */
+        .orders-filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-light);
+            background: #fff;
+            color: var(--text-dark);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .orders-filter-btn:hover {
+            border-color: var(--primary-sage-dark);
+            background: #fafafa;
+        }
+
+        .orders-filter-btn.active {
+            background: var(--primary-sage-dark);
+            color: #fff;
+            border-color: var(--primary-sage-dark);
+        }
+
+        .orders-filter-btn .filter-count {
+            background: rgba(0,0,0,0.06);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .orders-filter-btn.active .filter-count {
+            background: rgba(255,255,255,0.25);
+            color: #fff;
+        }
+
+        /* Tracking display box */
+        .order-tracking-card {
+            margin-top: 15px;
+            padding: 14px 18px;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 6px;
+        }
+
+        .order-tracking-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tracking-code-pill {
+            font-family: monospace;
+            font-weight: 700;
+            background: #fff;
+            border: 1px solid #bae6fd;
+            padding: 3px 10px;
+            border-radius: 4px;
+            color: #0369a1;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tracking edit form */
+        .order-tracking-form-box {
+            margin-top: 15px;
+            padding: 16px 20px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .order-tracking-form-box h5 {
+            margin: 0 0 12px 0;
+            font-size: 0.98rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Settings Styles */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .settings-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            padding: 25px;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        }
+
+        .settings-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .settings-card-header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .count-badge {
+            background-color: var(--primary-sage-light);
+            color: var(--primary-sage-dark);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-clear-all {
+            background: none;
+            border: 1px solid #ffcdd2;
+            color: #d32f2f;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .btn-clear-all:hover {
+            background: #d32f2f;
+            color: #fff;
+            border-color: #d32f2f;
+        }
+
+        .settings-add-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .settings-add-box .form-control {
+            flex: 1;
+        }
+
+        .btn-sm {
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .settings-list-container {
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            max-height: 350px;
+            overflow-y: auto;
+            background: #fafafa;
+        }
+
+        .settings-items-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item:hover {
+            background: var(--cosmic-latte-soft);
+        }
+
+        .settings-item-text {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .settings-delete-btn {
+            background: none;
+            border: 1px solid #ffcdd2;
+            color: #d32f2f;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .settings-delete-btn:hover {
+            background: #d32f2f;
+            color: #fff;
+        }
+
+        .settings-empty {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Cloudinary Image Upload Dropzone Styles */
+        .image-uploader-box {
+            border: 2px dashed var(--border-sage);
+            border-radius: 8px;
+            padding: 22px 15px;
+            text-align: center;
+            background: #fafaf8;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .image-uploader-box:hover,
+        .image-uploader-box.drag-over {
+            border-color: var(--primary-sage-dark);
+            background: var(--cosmic-latte-soft);
+        }
+
+        .uploader-icon {
+            font-size: 2.2rem;
+            color: var(--primary-sage-dark);
+            margin-bottom: 8px;
+        }
+
+        .uploader-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .uploader-hint {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Multi-Image Gallery Grid Styles */
+        .photo-count-badge {
+            background-color: var(--primary-sage-light);
+            color: var(--primary-sage-dark);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .photos-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .photo-tile {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: all 0.2s ease;
+        }
+
+        .photo-tile:hover {
+            border-color: var(--primary-sage);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .photo-tile.is-primary {
+            border-color: var(--primary-sage-dark);
+            box-shadow: 0 0 0 2px var(--primary-sage-light);
+        }
+
+        .photo-tile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-tile-primary-badge {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background: var(--primary-sage-dark);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .photo-tile-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 6px 6px 6px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 2;
+        }
+
+        .photo-tile:hover .photo-tile-actions {
+            opacity: 1;
+        }
+
+        .photo-tile-btn {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            color: var(--text-dark);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .photo-tile-btn:hover {
+            background: #fff;
+        }
+
+        .photo-tile-btn.delete-btn {
+            color: #d32f2f;
+        }
+
+        .photo-tile-btn.delete-btn:hover {
+            background: #ffebee;
+        }
+
+        .photo-tile-uploading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.88);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--primary-sage-dark);
+            z-index: 3;
+        }
+
+        .add-more-tile {
+            aspect-ratio: 1 / 1;
+            border: 2px dashed var(--border-sage);
+            border-radius: 8px;
+            background: #fafaf8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-light);
+            text-align: center;
+            padding: 8px;
+        }
+
+        .add-more-tile:hover {
+            border-color: var(--primary-sage-dark);
+            background: var(--cosmic-latte-soft);
+            color: var(--primary-sage-dark);
+        }
+
+        .image-preview-card {
+            display: none;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .image-preview-thumb {
+            width: 64px;
+            height: 64px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid var(--border-sage);
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        .image-preview-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .image-preview-filename {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .image-preview-status {
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        .upload-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .upload-badge.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .upload-badge.uploading {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .upload-badge.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .manual-url-toggle {
+            font-size: 0.82rem;
+            color: var(--primary-sage-dark);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 8px;
+            display: inline-block;
+        }
+    </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div>
+                <h1 style="font-family: var(--font-heading); font-size: 2rem;">Crochet Studio Admin</h1>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Manage your handcrafted crochet collection, orders, and studio settings.</p>
+            </div>
+            <a href="index.html" class="btn btn-secondary">Back to Storefront</a>
+        </header>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('products')">
+                <i class="fa-solid fa-box"></i> Crochet Pieces
+            </button>
+            <button class="tab-btn" onclick="switchTab('orders')">
+                <i class="fa-solid fa-receipt"></i> Orders
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings')">
+                <i class="fa-solid fa-gear"></i> Studio Settings
+            </button>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="products-tab" class="tab-content active">
+            <div class="product-form">
+                <h3>Add New Crochet Creation</h3>
+                <form id="add-product-form">
+                    <div class="form-group">
+                        <label for="p-name">Piece Name</label>
+                        <input type="text" class="form-control" id="p-name" placeholder="e.g. Daisy Granny Square Cardigan, Boho Crochet Tote" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="p-category">Crochet Category</label>
+                            <select class="form-control" id="p-category" required>
+                                <option value="">Loading categories...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-type">Stitch / Style Type</label>
+                            <select class="form-control" id="p-type" required>
+                                <option value="">Loading stitch types...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p-color">Yarn Shade / Color</label>
+                        <input type="text" class="form-control" id="p-color" placeholder="e.g. Sage Green, Terracotta, Cream White, Multicolored" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="p-price">Price (₹)</label>
+                            <input type="number" step="0.01" class="form-control" id="p-price" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="p-offer-price">Offer Price (₹)</label>
+                            <input type="number" step="0.01" class="form-control" id="p-offer-price" placeholder="0.00 (optional)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label style="margin-bottom: 0;">Piece Photos <span class="photo-count-badge" id="p-photo-count">0 photos</span></label>
+                            <small style="color: var(--text-light); font-size: 0.8rem;">1st photo is the Main Cover</small>
+                        </div>
+
+                        <input type="file" id="p-image-file" accept="image/*" multiple style="display: none;">
+                        <input type="hidden" id="p-image" required>
+                        
+                        <!-- Initial Dropzone (shown when 0 photos) -->
+                        <div class="image-uploader-box" id="p-dropzone" onclick="document.getElementById('p-image-file').click()">
+                            <div class="uploader-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                            <div class="uploader-text">Click or Drag & Drop Multiple Photos</div>
+                            <div class="uploader-hint">Upload front, back, stitch detail & model views (Auto-compressed & stored on Cloudinary)</div>
+                        </div>
+
+                        <!-- Multi-Photo Gallery Grid -->
+                        <div class="photos-gallery-grid" id="p-gallery-grid" style="display: none;">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+
+                        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="manual-url-toggle" onclick="window.toggleManualUrl('p-manual-box')">Or paste image URLs manually</span>
+                            <button type="button" class="btn-clear-all" id="p-clear-all-btn" onclick="window.clearAllProductPhotos('p')" style="display: none;">
+                                <i class="fa-solid fa-trash-can"></i> Clear All Photos
+                            </button>
+                        </div>
+                        <div id="p-manual-box" style="display: none; margin-top: 8px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="url" class="form-control" id="p-manual-url" placeholder="https://res.cloudinary.com/..." style="margin-bottom: 0;">
+                                <button type="button" class="btn btn-sm" onclick="window.addManualPhotoUrl('p')" style="white-space: nowrap;">Add URL</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="p-desc">Description & Yarn Details</label>
+                        <textarea class="form-control" id="p-desc" rows="3" placeholder="Describe yarn composition (e.g. 100% cotton), stitch type, fit, care instructions..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Add Crochet Piece</button>
+                </form>
+            </div>
+
+            <div class="product-list">
+                <h3>Current Crochet Collection</h3>
+                <div class="table-responsive">
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Piece Name</th>
+                                <th>Category</th>
+                                <th>Stitch Type</th>
+                                <th>Yarn Shade</th>
+                                <th>Price</th>
+                                <th>Offer Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-body">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="orders-tab" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                <div>
+                    <h3 style="margin-bottom: 4px;">Orders & Fulfillment</h3>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin: 0;">Manage studio orders, track shipment status, and add courier tracking codes for your customers.</p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <div style="position: relative;">
+                        <input type="text" id="orders-search-input" class="form-control" placeholder="Search customer, phone, AWB..." style="padding-left: 32px; width: 250px; margin-bottom: 0;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-light); font-size: 0.85rem;"></i>
+                    </div>
+                    <button type="button" class="btn-secondary-outline" onclick="window.refreshAdminOrders()" style="padding: 9px 14px; font-size: 0.85rem;" title="Refresh orders list">
+                        <i class="fa-solid fa-arrows-rotate"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Orders Status Filter Bar -->
+            <div class="orders-filter-tabs" id="orders-filter-tabs" style="display: flex; gap: 8px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 6px;">
+                <button type="button" class="orders-filter-btn active" data-filter="all" onclick="window.filterAdminOrders('all')">
+                    All Orders <span class="filter-count" id="count-order-all">0</span>
+                </button>
+                <button type="button" class="orders-filter-btn" data-filter="pending" onclick="window.filterAdminOrders('pending')">
+                    Pending <span class="filter-count" id="count-order-pending">0</span>
+                </button>
+                <button type="button" class="orders-filter-btn" data-filter="booked" onclick="window.filterAdminOrders('booked')">
+                    <i class="fa-solid fa-box" style="margin-right: 3px; color: #0284c7;"></i> Booked <span class="filter-count" id="count-order-booked">0</span>
+                </button>
+                <button type="button" class="orders-filter-btn" data-filter="shipped" onclick="window.filterAdminOrders('shipped')">
+                    <i class="fa-solid fa-truck-fast" style="margin-right: 3px; color: #0e7490;"></i> Shipped <span class="filter-count" id="count-order-shipped">0</span>
+                </button>
+                <button type="button" class="orders-filter-btn" data-filter="delivered" onclick="window.filterAdminOrders('delivered')">
+                    <i class="fa-solid fa-circle-check" style="margin-right: 3px; color: #16a34a;"></i> Delivered <span class="filter-count" id="count-order-delivered">0</span>
+                </button>
+                <button type="button" class="orders-filter-btn" data-filter="cancelled" onclick="window.filterAdminOrders('cancelled')">
+                    Cancelled <span class="filter-count" id="count-order-cancelled">0</span>
+                </button>
+            </div>
+
+            <div id="admin-orders-list">
+                <!-- Loaded via JS -->
+                <p>Loading orders...</p>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings-tab" class="tab-content">
+            <div style="margin-bottom: 25px;">
+                <h3>Studio Settings</h3>
+                <p style="color: var(--text-light); font-size: 0.95rem;">Manage dynamic crochet categories and stitch/style types for your collection.</p>
+            </div>
+
+            <div class="settings-grid">
+                <!-- Product Category Management -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <h4><i class="fa-solid fa-tags" style="color: var(--primary-sage-dark);"></i> Crochet Categories</h4>
+                            <span class="count-badge" id="cat-count">0</span>
+                        </div>
+                        <button type="button" class="btn-clear-all" onclick="window.clearAllCategories()" title="Clear all categories">
+                            <i class="fa-solid fa-trash-can"></i> Clear All
+                        </button>
+                    </div>
+
+                    <form id="add-category-form" class="settings-add-box">
+                        <input type="text" class="form-control" id="new-category-name" placeholder="New Category (e.g. Crochet Tops, Bags, Granny Square)" required>
+                        <button type="submit" class="btn btn-sm">Add Category</button>
+                    </form>
+
+                    <div class="settings-list-container">
+                        <ul id="settings-category-list" class="settings-items-list">
+                            <li class="settings-empty">Loading categories...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Product Type Management -->
+                <div class="settings-card">
+                    <div class="settings-card-header">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <h4><i class="fa-solid fa-layer-group" style="color: var(--accent-gold);"></i> Stitch & Pattern Types</h4>
+                            <span class="count-badge" id="type-count">0</span>
+                        </div>
+                        <button type="button" class="btn-clear-all" onclick="window.clearAllProductTypes()" title="Clear all stitch types">
+                            <i class="fa-solid fa-trash-can"></i> Clear All
+                        </button>
+                    </div>
+
+                    <form id="add-type-form" class="settings-add-box">
+                        <input type="text" class="form-control" id="new-type-name" placeholder="New Stitch Type (e.g. Granny Square, Lace Stitch, Ribbed)" required>
+                        <button type="submit" class="btn btn-sm">Add Stitch Type</button>
+                    </form>
+
+                    <div class="settings-list-container">
+                        <ul id="settings-type-list" class="settings-items-list">
+                            <li class="settings-empty">Loading stitch types...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cloudinary Storage Configuration -->
+                <div class="settings-card" style="grid-column: 1 / -1;">
+                    <div class="settings-card-header">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <h4><i class="fa-solid fa-cloud" style="color: #4285F4;"></i> Cloudinary Photo Storage</h4>
+                            <span class="count-badge" id="cld-status-badge" style="background:#e8f5e9; color:#2e7d32;">Ready</span>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.88rem; color: var(--text-light); margin-bottom: 15px;">
+                        Product photos are automatically compressed in your browser and hosted on your free Cloudinary account (25 GB free storage & fast CDN).
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="cld-cloud-name" style="font-size: 0.85rem; font-weight: 600;">Cloud Name</label>
+                            <input type="text" class="form-control" id="cld-cloud-name" value="gbthx3ec" placeholder="e.g. gbthx3ec">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="cld-upload-preset" style="font-size: 0.85rem; font-weight: 600;">Upload Preset</label>
+                            <input type="text" class="form-control" id="cld-upload-preset" value="neythu_products" placeholder="e.g. neythu_products">
+                        </div>
+                    </div>
+
+                    <div style="background: #fbfbfb; border: 1px solid #eee; border-radius: 6px; padding: 12px 15px; margin-bottom: 15px; font-size: 0.82rem; color: #555; line-height: 1.5;">
+                        <i class="fa-solid fa-circle-info" style="color: #4285F4; margin-right: 5px;"></i>
+                        <strong>Cloudinary Setup:</strong> In your <a href="https://console.cloudinary.com/settings/upload" target="_blank" style="color:var(--primary-sage-dark); font-weight:600; text-decoration:underline;">Cloudinary Console ➔ Settings ➔ Upload</a>, scroll down to <strong>Upload Presets</strong>, click <em>Add Upload Preset</em>, name it <code style="background:#eee; padding:2px 4px; border-radius:3px;">neythu_products</code>, change Signing Mode to <strong>Unsigned</strong>, and click <strong>Save</strong>.
+                    </div>
+
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-sm" onclick="window.saveCloudinarySettings()"><i class="fa-solid fa-check"></i> Save Settings</button>
+                        <button type="button" class="btn-secondary-outline" style="padding: 9px 16px; font-size: 0.85rem;" onclick="window.testCloudinaryConnection()" id="cld-test-btn">
+                            <i class="fa-solid fa-vial"></i> Test Connection
+                        </button>
+                        <span id="cld-test-result" style="font-size: 0.85rem; font-weight: 500;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="edit-product-modal" class="modal-overlay">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-pen-to-square" style="color: var(--primary-sage-dark);"></i> Edit Crochet Piece</h3>
+                <button type="button" class="modal-close-btn" onclick="window.closeEditProductModal()">&times;</button>
+            </div>
+            <form id="edit-product-form">
+                <div class="modal-body">
+                    <input type="hidden" id="edit-p-id">
+                    
+                    <div class="form-group">
+                        <label for="edit-p-name">Piece Name</label>
+                        <input type="text" class="form-control" id="edit-p-name" placeholder="e.g. Daisy Granny Square Cardigan" required>
+                    </div>
+
+                    <div class="modal-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="edit-p-category">Crochet Category</label>
+                            <select class="form-control" id="edit-p-category" required>
+                                <option value="">-- Select Category --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-p-type">Stitch / Style Type</label>
+                            <select class="form-control" id="edit-p-type" required>
+                                <option value="">-- Select Stitch Type --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-p-color">Yarn Shade / Color</label>
+                        <input type="text" class="form-control" id="edit-p-color" placeholder="e.g. Sage Green, Terracotta" required>
+                    </div>
+
+                    <div class="modal-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="edit-p-price">Price (₹)</label>
+                            <input type="number" step="0.01" class="form-control" id="edit-p-price" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-p-offer-price">Offer Price (₹)</label>
+                            <input type="number" step="0.01" class="form-control" id="edit-p-offer-price" placeholder="0.00 (optional)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label style="margin-bottom: 0;">Piece Photos <span class="photo-count-badge" id="edit-p-photo-count">0 photos</span></label>
+                            <small style="color: var(--text-light); font-size: 0.8rem;">1st photo is the Main Cover</small>
+                        </div>
+
+                        <input type="file" id="edit-p-image-file" accept="image/*" multiple style="display: none;">
+                        <input type="hidden" id="edit-p-image" required>
+
+                        <!-- Multi-Photo Gallery Grid for Edit Modal -->
+                        <div class="photos-gallery-grid" id="edit-p-gallery-grid" style="display: none;">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+
+                        <!-- Dropzone for empty state or adding more -->
+                        <div class="image-uploader-box" id="edit-p-dropzone" onclick="document.getElementById('edit-p-image-file').click()" style="padding: 14px; margin-top: 10px;">
+                            <div class="uploader-icon" style="font-size: 1.5rem; margin-bottom: 4px;"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                            <div class="uploader-text" style="font-size: 0.88rem;">Click or Drag to Upload Additional Photos</div>
+                        </div>
+
+                        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="manual-url-toggle" onclick="window.toggleManualUrl('edit-p-manual-box')">Or paste image URLs directly</span>
+                            <button type="button" class="btn-clear-all" id="edit-p-clear-all-btn" onclick="window.clearAllProductPhotos('edit-p')" style="display: none;">
+                                <i class="fa-solid fa-trash-can"></i> Clear All Photos
+                            </button>
+                        </div>
+                        <div id="edit-p-manual-box" style="display: none; margin-top: 8px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="url" class="form-control" id="edit-p-manual-url" placeholder="https://..." style="margin-bottom: 0;">
+                                <button type="button" class="btn btn-sm" onclick="window.addManualPhotoUrl('edit-p')" style="white-space: nowrap;">Add URL</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-p-desc">Description & Yarn Details</label>
+                        <textarea class="form-control" id="edit-p-desc" rows="3" placeholder="Describe yarn composition, fit, care instructions..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary-outline" onclick="window.closeEditProductModal()">Cancel</button>
+                    <button type="submit" class="btn" id="edit-p-submit-btn"><i class="fa-solid fa-check"></i> Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/admin.js"></script>
+    <script>
+        window.switchTab = (tabName) => {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            const tabEl = document.getElementById(tabName + '-tab');
+            if (tabEl) tabEl.classList.add('active');
+
+            const tabMap = { 'products': 0, 'orders': 1, 'settings': 2 };
+            const btns = document.querySelectorAll('.tab-btn');
+            if (tabMap[tabName] !== undefined && btns[tabMap[tabName]]) {
+                btns[tabMap[tabName]].classList.add('active');
+            }
+        };
+    </script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

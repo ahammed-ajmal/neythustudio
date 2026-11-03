@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crochet Studio Login | NEYTHU STUDIO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-forms {
+            width: 100%;
+        }
+
+        .auth-toggle {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+
+        .toggle-btn.active {
+            color: var(--primary-sage-dark);
+            border-bottom: 2px solid var(--primary-sage-dark);
+            margin-bottom: -2px;
+            font-weight: 600;
+        }
+
+        .auth-msg {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .auth-msg a {
+            color: var(--primary-sage-dark);
+        }
+
+        .auth-alert,
+        .error-msg {
+            display: none;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .auth-alert.error,
+        .error-msg:not(.success) {
+            color: #991b1b;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #dc2626;
+        }
+
+        .auth-alert.success,
+        .error-msg.success {
+            color: #1f5127;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid var(--primary-sage-dark);
+        }
+
+        .auth-alert i,
+        .error-msg i {
+            font-size: 1.15rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .auth-alert-content {
+            flex: 1;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-light);
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .auth-divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+
+        .auth-divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        .btn-social {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border: 1px solid var(--border-light);
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+
+        .btn-social:hover {
+            background: var(--cosmic-latte-soft);
+            border-color: var(--primary-sage);
+        }
+
+        .phone-auth-toggle {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .phone-auth-toggle a {
+            color: var(--primary-sage-dark);
+        }
+
+        #otp-section {
+            display: none;
+        }
+    </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="shop.html" class="nav-link">Shop</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html" id="auth-link"><i class="fa-regular fa-user"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <div class="auth-container">
+        <!-- Error & Notification Container -->
+        <div id="auth-error" class="auth-alert error" role="alert" aria-live="polite"></div>
+
+        <div class="auth-toggle">
+            <button class="toggle-btn active" id="btn-login" onclick="showForm('login')">Login</button>
+            <button class="toggle-btn" id="btn-signup" onclick="showForm('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-forms">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="form-control" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" id="login-password" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Log In</button>
+            <p class="auth-msg"><a href="#" id="forgot-password-link">Forgot Password?</a></p>
+
+            <div class="auth-divider">OR</div>
+
+            <button type="button" id="google-btn" class="btn btn-social">
+                <i class="fa-brands fa-google"></i> Sign in with Google
+            </button>
+
+            <p class="phone-auth-toggle">
+                <a href="#" onclick="showForm('phone')">Login with Phone Number</a>
+            </p>
+        </form>
+
+        <!-- Phone Login Form -->
+        <form id="phone-form" class="auth-forms" style="display: none;">
+            <div id="phone-section">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" class="form-control" id="phone-number" placeholder="+91 9876543210" required>
+                    <small style="color: var(--text-light); font-size: 0.75rem;">Include country code (e.g.,
+                        +91)</small>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Send OTP</button>
+            </div>
+
+            <div id="otp-section">
+                <div class="form-group">
+                    <label>Enter Verification Code</label>
+                    <input type="text" class="form-control" id="otp-code" placeholder="123456">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Verify OTP</button>
+            </div>
+
+            <div id="recaptcha-container"></div>
+
+            <p class="auth-msg"><a href="#" onclick="showForm('login')">Back to Email Login</a></p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-forms" style="display: none;">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control" id="signup-name" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="form-control" id="signup-email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" id="signup-password" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+            <p style="font-size: 0.78rem; color: var(--text-light); text-align: center; margin-top: 12px; line-height: 1.4;">
+                By signing up, you agree to our <a href="terms.html" style="color:var(--primary-sage-dark); font-weight:600;">Terms & Conditions</a> and <a href="privacy.html" style="color:var(--primary-sage-dark); font-weight:600;">Privacy Policy</a>.
+            </p>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/neythustudio" target="_blank" rel="noopener" aria-label="Follow NEYTHU STUDIO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                    <li><a href="contact.html">Custom Orders</a></li>
+                    <li><a href="faq.html">Care & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="cancellation-policy.html">Cancellation Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <a href="terms.html">Terms & Conditions</a> | <a href="privacy.html">Privacy Policy</a> | <a href="shipping-policy.html">Shipping Policy</a> | <a href="return-refund-policy.html">Return Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+        window.showForm = (type) => {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const phoneForm = document.getElementById('phone-form');
+            const btnLogin = document.getElementById('btn-login');
+            const btnSignup = document.getElementById('btn-signup');
+            const errorDiv = document.getElementById('auth-error');
+
+            if (errorDiv) {
+                errorDiv.style.display = 'none';
+                errorDiv.innerHTML = '';
+            }
+
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'none';
+            phoneForm.style.display = 'none';
+            btnLogin.classList.remove('active');
+            btnSignup.classList.remove('active');
+
+            if (type === 'login') {
+                loginForm.style.display = 'block';
+                btnLogin.classList.add('active');
+            } else if (type === 'signup') {
+                signupForm.style.display = 'block';
+                btnSignup.classList.add('active');
+            } else if (type === 'phone') {
+                phoneForm.style.display = 'block';
+            }
+        };
+    </script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

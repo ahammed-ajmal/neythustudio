@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | NEYTHU STUDIO Handmade Crochet</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .checkout-container {
+            max-width: var(--container-width);
+            margin: 60px auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            padding: 0 20px;
+        }
+
+        .checkout-form {
+            background-color: var(--bg-white);
+            padding: 30px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+        }
+
+        .checkout-title {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 10px;
+            color: var(--text-dark);
+            font-family: var(--font-heading);
+        }
+
+        .checkout-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .checkout-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .checkout-section:focus-within {
+            border-color: var(--primary-sage);
+            box-shadow: 0 2px 12px rgba(151, 164, 109, 0.12);
+        }
+
+        .checkout-section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--primary-sage-dark);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .checkout-section-header h3 {
+            font-size: 1.18rem;
+            margin: 0;
+            color: var(--text-dark);
+            font-family: var(--font-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .pincode-wrapper {
+            position: relative;
+        }
+
+        .pincode-input-group {
+            position: relative;
+        }
+
+        .pincode-input-group input {
+            padding-right: 40px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .pincode-input-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            pointer-events: none;
+            font-size: 0.95rem;
+        }
+
+        .pincode-status {
+            font-size: 0.82rem;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 20px;
+            color: var(--text-light);
+            transition: all 0.2s ease;
+        }
+
+        .pincode-status.loading {
+            color: var(--primary-sage-dark);
+        }
+
+        .pincode-status.success {
+            color: #216e2b;
+            font-weight: 500;
+        }
+
+        .pincode-status.error {
+            color: #c53030;
+        }
+
+        .required-star {
+            color: #d32f2f;
+            margin-left: 2px;
+            font-weight: 600;
+        }
+
+        .optional-tag {
+            font-weight: normal;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-left: 4px;
+        }
+
+        .auto-filled-highlight {
+            animation: highlightField 1.4s ease;
+        }
+
+        @keyframes highlightField {
+            0% {
+                background-color: rgba(151, 164, 109, 0.28);
+                border-color: var(--primary-sage-dark);
+            }
+            100% {
+                background-color: var(--bg-white);
+            }
+        }
+
+        .order-summary {
+            background-color: var(--cosmic-latte-soft);
+            padding: 30px;
+            height: fit-content;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .order-total {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-dark);
+        }
+
+        .payment-box {
+            padding: 18px;
+            background: var(--cosmic-latte);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            color: var(--text-dark);
+        }
+
+        .pay-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f3f4;
+            color: #3c4043;
+            font-size: 0.76rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #dadce0;
+        }
+
+        .payment-box-cashfree {
+            background: #ffffff;
+            border: 1.5px solid var(--primary-sage-dark);
+            box-shadow: 0 2px 8px rgba(151, 164, 109, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                order: -1;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-section {
+                padding: 18px 16px;
+            }
+        }
+    </style>
+    <!-- Cashfree JS SDK v3 -->
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="shop.html" class="nav-link">Shop</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html" id="auth-link"><i class="fa-regular fa-user"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <div class="checkout-container">
+        <!-- Shipping Form -->
+        <div class="checkout-form">
+            <h2 class="checkout-title">Handmade Delivery Details</h2>
+            <p class="checkout-subtitle">Handcrafted slow-fashion dispatched with sustainable, eco-friendly care.</p>
+            
+            <form id="checkout-form">
+                <!-- Section 1: Contact Details -->
+                <div class="checkout-section">
+                    <div class="checkout-section-header">
+                        <span class="section-badge">1</span>
+                        <h3><i class="fa-regular fa-user"></i> Contact & Recipient Details</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" class="form-control" placeholder="Recipient's full name" required id="name" autocomplete="name">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" placeholder="For dispatch updates & invoice" required id="email" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="10-digit mobile number for courier" required id="phone" autocomplete="tel">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Delivery Address (Separated Section) -->
+                <div class="checkout-section" id="address-section">
+                    <div class="checkout-section-header">
+                        <span class="section-badge">2</span>
+                        <h3><i class="fa-solid fa-location-dot"></i> Delivery Address</h3>
+                    </div>
+
+                    <!-- 1. House / Flat No. * -->
+                    <!-- 2. Building Name (optional) -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="house-no">House / Flat No. <span class="required-star">*</span></label>
+                            <input type="text" class="form-control" placeholder="House / Flat / Door No." required id="house-no" autocomplete="address-line1">
+                        </div>
+                        <div class="form-group">
+                            <label for="building-name">Building Name <span class="optional-tag">(optional)</span></label>
+                            <input type="text" class="form-control" placeholder="Apartment / Building / Society" id="building-name" autocomplete="address-line2">
+                        </div>
+                    </div>
+
+                    <!-- 3. Street / Road * -->
+                    <!-- 4. Area / Locality * -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="street-road">Street / Road <span class="required-star">*</span></label>
+                            <input type="text" class="form-control" placeholder="Street name / Main road / Lane" required id="street-road" autocomplete="address-line2">
+                        </div>
+                        <div class="form-group">
+                            <label for="area-locality">Area / Locality <span class="required-star">*</span></label>
+                            <input type="text" class="form-control" placeholder="Area / Locality / Sector" required id="area-locality">
+                        </div>
+                    </div>
+
+                    <!-- 5. Landmark (optional) -->
+                    <div class="form-group">
+                        <label for="landmark">Landmark <span class="optional-tag">(optional)</span></label>
+                        <input type="text" class="form-control" placeholder="Nearby landmark (e.g. Near Metro, Opp. School)" id="landmark">
+                    </div>
+
+                    <!-- 6. PIN Code * -->
+                    <!-- 7. POST OFFICE -->
+                    <div class="form-row">
+                        <div class="form-group pincode-wrapper">
+                            <label for="zip">PIN Code <span class="required-star">*</span></label>
+                            <div class="pincode-input-group">
+                                <input type="text" class="form-control" placeholder="6-digit PIN code" required id="zip" maxlength="6" inputmode="numeric" autocomplete="postal-code">
+                                <span class="pincode-input-icon" id="pincode-icon"><i class="fa-solid fa-map-pin"></i></span>
+                            </div>
+                            <div id="pincode-status" class="pincode-status">
+                                <i class="fa-solid fa-bolt"></i> Enter PIN code to auto-fetch location
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="post-office">POST OFFICE</label>
+                            <select class="form-control" id="post-office">
+                                <option value="">-- Enter PIN Code first --</option>
+                            </select>
+                            <input type="text" class="form-control" id="post-office-manual" placeholder="Type Post Office name" style="display:none; margin-top:8px;">
+                        </div>
+                    </div>
+
+                    <!-- 8. City / Town / Village * -->
+                    <!-- 9. State -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City / Town / Village <span class="required-star">*</span></label>
+                            <input type="text" class="form-control" placeholder="Auto-filled from PIN Code" required id="city" autocomplete="address-level2">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" placeholder="Auto-filled from PIN Code" id="state" autocomplete="address-level1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Payment Method -->
+                <div class="checkout-section">
+                    <div class="checkout-section-header">
+                        <span class="section-badge">3</span>
+                        <h3><i class="fa-solid fa-lock" style="color: var(--primary-sage-dark);"></i> Payment Method</h3>
+                    </div>
+                    <div class="payment-box payment-box-cashfree" style="text-align: left; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="radio" id="pay-cashfree" name="payment-method" checked style="accent-color: var(--primary-sage-dark); transform: scale(1.15);">
+                                <label for="pay-cashfree" style="font-weight: 600; color: var(--text-dark); cursor: pointer; margin: 0; font-size: 1rem;">
+                                    Online Payment (Cashfree)
+                                </label>
+                            </div>
+                            <span style="background: #e8f5e9; color: #2e7d32; font-size: 0.72rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;">
+                                <i class="fa-solid fa-shield-halved"></i> 100% Encrypted
+                            </span>
+                        </div>
+                        <p style="font-size: 0.86rem; color: var(--text-light); margin: 0 0 14px 26px; line-height: 1.45;">
+                            Pay directly via <strong>UPI (GPay, PhonePe, Paytm, BHIM)</strong>, <strong>Credit / Debit Cards</strong>, or <strong>Net Banking</strong>.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-left: 26px; flex-wrap: wrap;">
+                            <span class="pay-badge"><i class="fa-solid fa-mobile-screen-button" style="color:#0284c7;"></i> UPI (GPay / PhonePe / Paytm)</span>
+                            <span class="pay-badge"><i class="fa-regular fa-credit-card" style="color:#d97706;"></i> Cards (Visa / MC / RuPay)</span>
+                            <span class="pay-badge"><i class="fa-solid fa-building-columns" style="color:#16a34a;"></i> Net Banking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-checkout-btn" class="btn" style="width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Proceed to Pay <span id="btn-total-amount"></span></span>
+                </button>
+                <div style="background:var(--cosmic-latte-soft); border:1px solid var(--border-light); border-radius:8px; padding:10px 12px; margin-top:12px; font-size:0.78rem; color:var(--text-dark); line-height:1.45; text-align:center;">
+                    <i class="fa-solid fa-circle-exclamation" style="color:var(--primary-sage-dark); margin-right:4px;"></i>
+                    <strong>All Sales Final:</strong> Due to the handmade artisanal nature of our pieces, we have a strict <strong>No Cancellation and No Return Policy</strong> once an order is placed. By placing this order, you agree to our <a href="terms.html" target="_blank" style="color:var(--primary-sage-dark); font-weight:600; text-decoration:underline;">Terms</a>, <a href="shipping-policy.html" target="_blank" style="color:var(--primary-sage-dark); font-weight:600; text-decoration:underline;">Shipping</a>, <a href="return-refund-policy.html" target="_blank" style="color:var(--primary-sage-dark); font-weight:600; text-decoration:underline;">Return Policy</a>, and <a href="cancellation-policy.html" target="_blank" style="color:var(--primary-sage-dark); font-weight:600; text-decoration:underline;">Cancellation Policy</a>.
+                </div>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2 class="checkout-title">Your Handcrafted Order</h2>
+            <div id="checkout-items">
+                <!-- Items populated via JS -->
+            </div>
+
+            <div class="order-total">
+                <span>Total Amount</span>
+                <span id="checkout-total">₹0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/neythustudio" target="_blank" rel="noopener" aria-label="Follow NEYTHU STUDIO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                    <li><a href="contact.html">Custom Orders</a></li>
+                    <li><a href="faq.html">Care & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="cancellation-policy.html">Cancellation Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <a href="terms.html">Terms & Conditions</a> | <a href="privacy.html">Privacy Policy</a> | <a href="shipping-policy.html">Shipping Policy</a> | <a href="return-refund-policy.html">Return Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/checkout.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handcrafted Crochet Details | NEYTHU STUDIO</title>
+    <meta name="description" content="View product specifications, yarn material, dimensions, and styling details for handcrafted crochet wear by NEYTHU STUDIO.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://neythustudio.in/product.html">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .product-details-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 80px 20px;
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
+        .gallery-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-gallery {
+            background-color: #F4EFE3;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-gallery img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: opacity 0.25s ease;
+        }
+
+        .product-thumbnails {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 4px 2px;
+            scroll-behavior: smooth;
+        }
+
+        .product-thumbnails::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .product-thumbnails::-webkit-scrollbar-thumb {
+            background: var(--primary-sage);
+            border-radius: 4px;
+        }
+
+        .thumb-tile {
+            width: 76px;
+            height: 76px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            flex-shrink: 0;
+            background: #F4EFE3;
+            transition: all 0.2s ease;
+        }
+
+        .thumb-tile:hover {
+            border-color: var(--primary-sage);
+            transform: translateY(-2px);
+        }
+
+        .thumb-tile.active {
+            border-color: var(--primary-sage-dark);
+            box-shadow: 0 0 0 2px var(--primary-sage-light);
+        }
+
+        .thumb-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text-dark);
+        }
+
+        .details-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .details-price {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .details-description {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .product-attributes-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 15px 20px;
+            background: var(--cosmic-latte-soft);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+        }
+
+        .attr-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .attr-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .attr-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .options-group {
+            margin-bottom: 25px;
+        }
+
+        .option-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .quantity-selector {
+            display: flex;
+            border: 1px solid var(--border-light);
+            width: fit-content;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: var(--primary-sage-light);
+            color: var(--primary-sage-dark);
+        }
+
+        .qty-input {
+            width: 50px;
+            border: none;
+            text-align: center;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .actions {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            text-align: center;
+        }
+
+        .crochet-care-badge {
+            margin-top: 25px;
+            padding: 15px;
+            background: var(--cosmic-latte-soft);
+            border: 1px dashed var(--border-sage);
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .product-details-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 20px;
+            }
+
+            .product-gallery {
+                height: 400px;
+            }
+
+            .details-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li class="desktop-only-nav"><a href="shop.html" class="nav-link" style="border-bottom: 2px solid var(--text-dark);">Shop</a></li>
+            <li class="mobile-only-nav">
+                <a href="shop.html?sort=newest" class="nav-link nav-highlight-link">
+                    <span><i class="fa-solid fa-sparkles" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>New Arrivals</span>
+                    <span class="nav-badge-new">NEW</span>
+                </a>
+            </li>
+            <li class="mobile-only-nav nav-accordion-item">
+                <button type="button" class="nav-accordion-btn" aria-expanded="false">
+                    <span><i class="fa-solid fa-bag-shopping" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>Shop</span>
+                    <i class="fa-solid fa-chevron-down nav-chevron"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="shop.html" class="sub-link">
+                        <i class="fa-solid fa-border-all"></i> Shop All
+                    </a>
+                    <div class="sub-category-group">
+                        <span class="sub-category-title">Shop by Category</span>
+                        <div class="sub-category-grid">
+                            <a href="shop.html?category=Crochet Tops" class="sub-cat-pill">Tops</a>
+                            <a href="shop.html?category=Crochet Dresses" class="sub-cat-pill">Dresses</a>
+                            <a href="shop.html?category=Granny Square" class="sub-cat-pill">Granny Square</a>
+                            <a href="shop.html?category=Crochet Bags" class="sub-cat-pill">Bags & Totes</a>
+                            <a href="shop.html?category=Crochet Accessories" class="sub-cat-pill">Accessories</a>
+                        </div>
+                    </div>
+                    <div class="sub-category-group">
+                        <span class="sub-category-title">Collections</span>
+                        <div class="sub-category-grid">
+                            <a href="shop.html?type=Summer Mesh" class="sub-cat-pill">Summer Mesh</a>
+                            <a href="shop.html?type=Hand-Hooked Classic" class="sub-cat-pill">Hand-Hooked Classic</a>
+                            <a href="shop.html?type=Ribbed Crochet" class="sub-cat-pill">Ribbed Crochet</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="mobile-only-nav nav-accordion-item">
+                <button type="button" class="nav-accordion-btn" aria-expanded="false">
+                    <span><i class="fa-solid fa-book-open" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>Journal</span>
+                    <i class="fa-solid fa-chevron-down nav-chevron"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="about.html#what-is-crochet" class="sub-link">
+                        <i class="fa-solid fa-feather-pointed"></i> What is Crochet?
+                    </a>
+                </div>
+            </li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html" id="auth-link"><i class="fa-regular fa-user"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <div class="product-details-container" id="product-detail-area">
+        <div class="gallery-wrapper">
+            <div class="product-gallery">
+                <img id="main-image" src="" alt="Crochet Creation">
+            </div>
+            <div class="product-thumbnails" id="product-thumbnails" style="display: none;"></div>
+        </div>
+        <div class="product-info-section">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="shop.html">Shop</a> / <span id="prod-cat">Crochet Category</span>
+                <span id="prod-type-sep" style="display:none;"> / </span><span id="prod-type" style="display:none; font-weight: 500; color: var(--text-dark);"></span>
+            </div>
+
+            <h1 class="details-title" id="prod-name">Loading piece...</h1>
+            <div class="details-price" id="prod-price">...</div>
+            <p class="details-description" id="prod-desc">
+                Loading handcrafted details...
+            </p>
+
+            <!-- Product Attributes: Yarn Shade and Stitch / Pattern -->
+            <div class="product-attributes-box" id="product-attributes-box">
+                <div class="attr-item" id="prod-color-group">
+                    <span class="attr-label"><i class="fa-solid fa-palette"></i> Yarn Shade</span>
+                    <span class="attr-value" id="prod-color">-</span>
+                </div>
+                <div class="attr-item" id="prod-type-group">
+                    <span class="attr-label"><i class="fa-solid fa-layer-group"></i> Stitch / Style</span>
+                    <span class="attr-value" id="prod-type-badge">-</span>
+                </div>
+            </div>
+
+            <div class="options-group">
+                <span class="option-label">Quantity</span>
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                    <input type="number" class="qty-input" id="qty-value" value="1" min="1" readonly>
+                    <button class="qty-btn" onclick="updateQty(1)">+</button>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-add-cart" id="add-to-cart-btn">Add to Crochet Bag</button>
+                <button class="btn btn-secondary" title="Save to Favorites"><i class="fa-regular fa-heart"></i></button>
+            </div>
+
+            <div class="crochet-care-badge">
+                <div style="font-weight: 600; margin-bottom: 4px; color: var(--primary-sage-dark);">
+                    <i class="fa-solid fa-hand-holding-heart"></i> 100% Hand-Hooked Textile Art
+                </div>
+                <p style="margin: 0; color: var(--text-light); line-height: 1.5;">Made loop-by-loop with natural yarn. Hand wash gently in cool water with mild detergent and lay flat in shade to dry.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/neythustudio" target="_blank" rel="noopener" aria-label="Follow NEYTHU STUDIO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                    <li><a href="contact.html">Custom Orders</a></li>
+                    <li><a href="faq.html">Care & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="cancellation-policy.html">Cancellation Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <a href="terms.html" style="color:white;">Terms & Conditions</a> | <a href="privacy.html"
+                    style="color:white;">Privacy Policy</a> | <a href="shipping-policy.html"
+                    style="color:white;">Shipping Policy</a> | <a href="return-refund-policy.html"
+                    style="color:white;">Return Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/products.js"></script>
+    <script type="module" src="js/cart.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+        window.updateQty = (change) => {
+            const input = document.getElementById('qty-value');
+            let val = parseInt(input.value);
+            val += change;
+            if (val < 1) val = 1;
+            input.value = val;
+        };
+    </script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

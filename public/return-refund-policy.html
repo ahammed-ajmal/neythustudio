@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return & Refund Policy | NEYTHU STUDIO Handmade Crochet</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li class="desktop-only-nav"><a href="shop.html" class="nav-link">Shop</a></li>
+            <li class="mobile-only-nav">
+                <a href="shop.html?sort=newest" class="nav-link nav-highlight-link">
+                    <span><i class="fa-solid fa-sparkles" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>New Arrivals</span>
+                    <span class="nav-badge-new">NEW</span>
+                </a>
+            </li>
+            <li class="mobile-only-nav nav-accordion-item">
+                <button type="button" class="nav-accordion-btn" aria-expanded="false">
+                    <span><i class="fa-solid fa-bag-shopping" style="color:var(--primary-sage-dark); margin-right: 8px;"></i>Shop</span>
+                    <i class="fa-solid fa-chevron-down nav-chevron"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="shop.html" class="sub-link">
+                        <i class="fa-solid fa-border-all"></i> Shop All
+                    </a>
+                    <div class="sub-category-group">
+                        <span class="sub-category-title">Shop by Category</span>
+                        <div class="sub-category-grid">
+                            <a href="shop.html?category=Crochet Tops" class="sub-cat-pill">Tops</a>
+                            <a href="shop.html?category=Crochet Dresses" class="sub-cat-pill">Dresses</a>
+                            <a href="shop.html?category=Granny Square" class="sub-cat-pill">Granny Square</a>
+                            <a href="shop.html?category=Crochet Bags" class="sub-cat-pill">Bags & Totes</a>
+                            <a href="shop.html?category=Crochet Accessories" class="sub-cat-pill">Accessories</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html" id="auth-link"><i class="fa-regular fa-user"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <main class="policy-page-wrapper">
+        <!-- Hero Header -->
+        <header class="policy-hero">
+            <span class="policy-tag-badge"><i class="fa-solid fa-hand-holding-heart"></i> Slow Fashion Policy</span>
+            <h1>Return & Refund Policy</h1>
+            <p class="policy-hero-subtitle">Due to the artisanal, handmade nature of our slow-fashion crochet creations, we maintain a strict No Return and No Refund Policy once an order is placed.</p>
+            <div class="policy-meta-info">
+                <span><i class="fa-regular fa-calendar-check"></i> Last Updated: January 2026</span>
+                <span><i class="fa-solid fa-circle-exclamation" style="color:var(--primary-sage-dark);"></i> All Sales Are Final</span>
+            </div>
+
+            <!-- Policy Navigation Tabs -->
+            <div class="policy-nav-container">
+                <nav class="policy-nav-bar" aria-label="Policy Navigation">
+                    <a href="privacy.html" class="policy-tab-link"><i class="fa-solid fa-user-shield"></i> Privacy Policy</a>
+                    <a href="shipping-policy.html" class="policy-tab-link"><i class="fa-solid fa-truck-fast"></i> Shipping Policy</a>
+                    <a href="return-refund-policy.html" class="policy-tab-link active"><i class="fa-solid fa-arrow-rotate-left"></i> Return & Refund Policy</a>
+                    <a href="cancellation-policy.html" class="policy-tab-link"><i class="fa-solid fa-ban"></i> Cancellation Policy</a>
+                    <a href="terms.html" class="policy-tab-link"><i class="fa-solid fa-file-contract"></i> Terms & Conditions</a>
+                    <a href="contact.html" class="policy-tab-link"><i class="fa-solid fa-address-book"></i> Contact Information</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Document Content -->
+        <div class="policy-container">
+            <article class="policy-card">
+                <div class="policy-callout" style="border-left-color: #b54747; background-color: #fff9f9;">
+                    <i class="fa-solid fa-circle-exclamation" style="color: #b54747;"></i>
+                    <div class="policy-callout-content">
+                        <strong>All Sales Final Notice:</strong> Once an order is placed on NEYTHU STUDIO, <strong>we do not accept returns or issue refunds</strong>. Each piece is crafted loop-by-loop by individual artisans using natural yarn. Please review all garment measurements, colors, and descriptions carefully prior to checkout.
+                    </div>
+                </div>
+
+                <section class="policy-section">
+                    <h2><i class="fa-solid fa-ban"></i> 1. Strict No-Return & No-Refund Policy</h2>
+                    <p>At <strong>NEYTHU STUDIO</strong>, every single crochet garment, bag, and accessory is created through painstaking manual handcrafting. Because slow fashion requires dedicated artisan hours, delicate natural fibers, and made-to-order planning, <strong>all purchases are strictly final once placed</strong>.</p>
+                    <p>We do not accept returns or process refunds under any of the following circumstances:</p>
+                    <ul>
+                        <li>Change of mind, personal preference, or buyer's remorse after ordering.</li>
+                        <li>Incorrect size chosen by the customer (please consult our sizing guides before ordering).</li>
+                        <li>Natural variations in yarn shade, dye lot nuance, or handcrafted stitch tension (which are genuine hallmarks of authentic hand-hooked textile art).</li>
+                        <li>Unclaimed, refused, or rejected parcels at the time of delivery.</li>
+                    </ul>
+                </section>
+
+                <section class="policy-section">
+                    <h2><i class="fa-solid fa-scissors"></i> 2. Why We Do Not Accept Returns</h2>
+                    <p>Unlike mass-produced fast-fashion garments produced in automated factories, crochet cannot be replicated by any modern machine—every single stitch is looped by an artisan's hand:</p>
+                    <ul>
+                        <li><strong>Artisanal Time & Fiber Commitment:</strong> Once an order is entered, raw sustainable yarn skeins are allocated and hand-crocheting begins specifically for that order.</li>
+                        <li><strong>Delicate Fiber Preservation:</strong> Repeated transit, packaging, and handling can permanently stretch, snag, or distort delicate open-mesh and granny-square crochet stitches.</li>
+                        <li><strong>Hygiene & Slow Fashion Values:</strong> We guarantee that every customer receives a brand-new, freshly crafted, unhandled piece that has never been worn, washed, or tried on by anyone else.</li>
+                    </ul>
+                </section>
+
+                <section class="policy-section">
+                    <h2><i class="fa-solid fa-truck-medical"></i> 3. Sole Exception: Transit Damage or Incorrect Item Delivered</h2>
+                    <p>The only exception to our No-Return Policy is if your parcel arrives physically damaged during courier transit, or if an entirely incorrect product was delivered in error:</p>
+                    <div style="background:var(--cosmic-latte-soft); padding:16px 20px; border-radius:10px; border:1px solid var(--border-light); margin:14px 0;">
+                        <p style="margin-bottom:8px; font-weight:600; color:var(--text-dark);"><i class="fa-solid fa-clock" style="color:var(--primary-sage-dark); margin-right:6px;"></i> Strict 24-Hour Reporting Window:</p>
+                        <ul style="margin: 0 0 0 18px;">
+                            <li>You must notify our studio within <strong>24 hours of delivery</strong>. Any claims reported after 24 hours cannot be entertained.</li>
+                            <li>You must provide <strong>2-3 clear photographs and a short unboxing video</strong> showing the outer parcel packaging and the specific defect or wrong piece received.</li>
+                            <li>Email the evidence along with your Order ID to <a href="mailto:neythustudio@gmail.com" style="color:var(--primary-sage-dark); font-weight:600;">neythustudio@gmail.com</a>, call our helpline (<a href="tel:+919744911261" style="color:var(--primary-sage-dark); font-weight:600;">+91 97449 11261</a>), or message WhatsApp (<a href="https://wa.me/919544093668" target="_blank" rel="noopener" style="color:var(--primary-sage-dark); font-weight:600;">+91 95440 93668</a>).</li>
+                        </ul>
+                    </div>
+                    <p><strong>Artisan Replacement Only:</strong> Upon verifying genuine courier damage or studio dispatch error, we will arrange a free reverse pickup and craft a <strong>replacement piece</strong> of the same item on priority. Monetary refunds are not provided.</p>
+                </section>
+
+                <section class="policy-section">
+                    <h2><i class="fa-solid fa-ruler-combined"></i> 4. Sizing & Fit Advisory Before Ordering</h2>
+                    <p>To ensure total satisfaction with your handcrafted piece, we strongly recommend taking the following steps before completing checkout:</p>
+                    <ul>
+                        <li>Measure your bust, waist, and preferred garment length using a soft measuring tape.</li>
+                        <li>Review the detailed dimensions and stitch elasticity notes on the product page.</li>
+                        <li>Have questions about fit, yarn stretch, or styling? Contact our artisans via WhatsApp at <a href="https://wa.me/919544093668" target="_blank" rel="noopener" style="color:var(--primary-sage-dark); font-weight:600;">+91 95440 93668</a> before placing your order—we are always happy to guide your size selection.</li>
+                    </ul>
+                </section>
+
+                <section class="policy-section">
+                    <h2><i class="fa-solid fa-soap"></i> 5. Proper Care & Longevity</h2>
+                    <p>Handmade crochet wear requires gentle love. We provide clear care instructions with every parcel:</p>
+                    <ul>
+                        <li>Always <strong>hand wash gently in cold water</strong> with mild liquid wool/silk detergent.</li>
+                        <li>Do not wring, machine wash, or tumble dry. Dry flat in shade to preserve stitch structure.</li>
+                        <li>Store folded in a drawer rather than hung on wire hangers.</li>
+                    </ul>
+                </section>
+
+                <section class="policy-section">
+                    <h2><i class="fa-solid fa-headset"></i> 6. Studio Support Desk</h2>
+                    <p>If you have questions about sizing, care, or a verified transit damage claim:</p>
+                    <div style="background:var(--bg-card); padding:18px 22px; border-radius:10px; border:1px solid var(--border-light); font-size:0.92rem; margin-top:12px;">
+                        <p style="margin-bottom:6px;"><strong>Email:</strong> <a href="mailto:neythustudio@gmail.com" style="color:var(--primary-sage-dark); font-weight:600;">neythustudio@gmail.com</a></p>
+                        <p style="margin-bottom:6px;"><strong>Mobile Helpline:</strong> <a href="tel:+919744911261" style="color:var(--primary-sage-dark); font-weight:600;">+91 97449 11261</a> (Mon-Sat, 9:00 AM – 6:00 PM IST)</p>
+                        <p style="margin-bottom:6px;"><strong>WhatsApp Support:</strong> <a href="https://wa.me/919544093668" target="_blank" rel="noopener" style="color:var(--primary-sage-dark); font-weight:600;">+91 95440 93668</a></p>
+                        <p style="margin-bottom:6px;"><strong>Studio Atelier:</strong> Neythu Studio, Pathampad Rd, Niramaruthur, Tirur, Keralam 676109, India</p>
+                        <p style="margin-bottom:0;"><strong>Average Response Time:</strong> Within 24 business hours</p>
+                    </div>
+                </section>
+
+                <!-- Help Banner -->
+                <div class="policy-help-card">
+                    <div class="policy-help-text">
+                        <h3>Read our Order Cancellation Policy</h3>
+                        <p>Learn why orders cannot be cancelled once placed in our artisanal queue.</p>
+                    </div>
+                    <div class="policy-help-actions">
+                        <a href="cancellation-policy.html" class="policy-btn-outline"><i class="fa-solid fa-ban"></i> Cancellation Policy</a>
+                        <a href="contact.html" class="policy-btn-primary"><i class="fa-regular fa-comment-dots"></i> Message Our Artisans</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/neythustudio" target="_blank" rel="noopener" aria-label="Follow NEYTHU STUDIO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                    <li><a href="contact.html">Custom Orders</a></li>
+                    <li><a href="faq.html">Care & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="cancellation-policy.html">Cancellation Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <a href="terms.html">Terms & Conditions</a> | <a href="privacy.html">Privacy Policy</a> | <a href="shipping-policy.html">Shipping Policy</a> | <a href="return-refund-policy.html">Return Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/cart.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

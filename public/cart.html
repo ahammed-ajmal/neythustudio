@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Crochet Bag | NEYTHU STUDIO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .cart-container {
+            max-width: var(--container-width);
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .cart-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: var(--font-heading);
+            color: var(--text-dark);
+        }
+
+        .cart-table-container {
+            margin-bottom: 40px;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-light);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .cart-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle;
+        }
+
+        .cart-product-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-product-info img {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .cart-product-name {
+            font-weight: 500;
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .cart-product-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .cart-meta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-light);
+            width: fit-content;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .quantity-control button {
+            background: transparent;
+            border: none;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .quantity-control button:hover {
+            background: var(--primary-sage-light);
+            color: var(--primary-sage-dark);
+        }
+
+        .quantity-control input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            -webkit-appearance: none;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .remove-btn:hover {
+            color: #d32f2f;
+        }
+
+        .cart-summary {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-light);
+            padding: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            border-radius: 6px;
+        }
+
+        .summary-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .total-row {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            border-top: 1px solid var(--border-light);
+            padding-top: 15px;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            padding: 60px 0;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .cart-table th {
+                display: none;
+            }
+
+            .cart-table td {
+                display: block;
+                width: 100%;
+                text-align: right;
+            }
+
+            .cart-table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+            }
+
+            .cart-product-info {
+                justify-content: flex-end;
+            }
+
+            .quantity-control {
+                margin-left: auto;
+            }
+        }
+    </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Neythu Studio">
+    <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="shop.html" class="nav-link">Shop</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html" id="auth-link"><i class="fa-regular fa-user"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <div class="cart-container">
+        <h1 class="cart-title">Your Handcrafted Crochet Bag</h1>
+
+        <div id="cart-content">
+            <!-- Cart Items Table -->
+            <div class="cart-table-container">
+                <table class="cart-table" id="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Crochet Creation</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items-body">
+                        <!-- Items rendered via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+                <h2 class="summary-title">Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Handmade Packing & Shipping</span>
+                    <span>Free</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span id="cart-total">₹0.00</span>
+                </div>
+                <a href="checkout.html" class="btn" style="width: 100%; text-align: center; margin-top: 20px;">Proceed
+                    to Checkout</a>
+            </div>
+        </div>
+
+        <div id="empty-cart" class="empty-cart-msg" style="display: none;">
+            <p>Your crochet bag is currently empty.</p>
+            <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 6px;">Discover one-of-a-kind tops, cozy granny squares, and woven totes crafted by hand.</p>
+            <a href="shop.html" class="btn btn-secondary" style="margin-top: 20px;">Explore Crochet Collection</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+                <div class="social-links" style="margin-top: 20px;">
+                    <a href="https://www.instagram.com/neythustudio" target="_blank" rel="noopener" aria-label="Follow NEYTHU STUDIO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="margin-left: 10px;"><i class="fa-brands fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                    <li><a href="contact.html">Custom Orders</a></li>
+                    <li><a href="faq.html">Care & FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="cancellation-policy.html">Cancellation Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Contact Information</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <a href="terms.html">Terms & Conditions</a> | <a href="privacy.html">Privacy Policy</a> | <a href="shipping-policy.html">Shipping Policy</a> | <a href="return-refund-policy.html">Return Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/cart.js"></script>
+    <script src="js/nav.js"></script>
+    <script type="module">
+        import { updateItemQuantity, removeFromCart, getCartTotal } from './js/cart.js';
+
+        // Load Cart Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('neythu_cart') || localStorage.getItem('jasmnl_cart') || '[]');
+            renderCart(cart);
+        });
+
+        function renderCart(cart) {
+            const tbody = document.getElementById('cart-items-body');
+            const emptyMsg = document.getElementById('empty-cart');
+            const cartContent = document.getElementById('cart-content');
+
+            if (cart.length === 0) {
+                cartContent.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                return;
+            } else {
+                cartContent.style.display = 'block';
+                emptyMsg.style.display = 'none';
+            }
+
+            tbody.innerHTML = cart.map((item, index) => {
+                const metaBadges = [];
+                if (item.color) metaBadges.push(`<span class="cart-meta-badge"><i class="fa-solid fa-palette" style="font-size:0.75rem; color: var(--primary-sage);"></i> Shade: <strong>${item.color}</strong></span>`);
+                if (item.type) metaBadges.push(`<span class="cart-meta-badge"><i class="fa-solid fa-layer-group" style="font-size:0.75rem; color: var(--accent-gold);"></i> Stitch: <strong>${item.type}</strong></span>`);
+                if (item.size && item.size !== 'Standard') metaBadges.push(`<span class="cart-meta-badge">Fit: <strong>${item.size}</strong></span>`);
+
+                const metaHtml = metaBadges.length > 0 
+                    ? `<div class="cart-product-meta">${metaBadges.join(' | ')}</div>` 
+                    : '';
+
+                return `
+                <tr>
+                    <td data-label="Crochet Creation">
+                        <div class="cart-product-info">
+                            <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80x100?text=Crochet+Piece'">
+                            <div>
+                                <span class="cart-product-name">${item.name}</span>
+                                ${metaHtml}
+                            </div>
+                        </div>
+                    </td>
+                    <td data-label="Price">₹${item.price.toFixed(2)}</td>
+                    <td data-label="Quantity">
+                        <div class="quantity-control">
+                            <button onclick="window.updateCartQty(${index}, ${(item.quantity || 1) - 1})">-</button>
+                            <input type="number" value="${item.quantity || 1}" readonly>
+                            <button onclick="window.updateCartQty(${index}, ${(item.quantity || 1) + 1})">+</button>
+                        </div>
+                    </td>
+                    <td data-label="Total">₹${(item.price * (item.quantity || 1)).toFixed(2)}</td>
+                    <td data-label="Remove">
+                        <button class="remove-btn" onclick="window.removeCartItem(${index})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `;
+            }).join('');
+
+            updateTotals();
+        }
+
+        function updateTotals() {
+            const total = getCartTotal();
+            document.getElementById('cart-subtotal').innerText = '₹' + total.toFixed(2);
+            document.getElementById('cart-total').innerText = '₹' + total.toFixed(2);
+        }
+
+        window.updateCartQty = (index, newQty) => {
+            if (newQty < 1) return;
+            const updatedCart = updateItemQuantity(index, newQty);
+            renderCart(updatedCart);
+        };
+
+        window.removeCartItem = (index) => {
+            const updatedCart = removeFromCart(index);
+            renderCart(updatedCart);
+        };
+    </script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

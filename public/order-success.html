@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | NEYTHU STUDIO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .success-page {
+            max-width: 720px;
+            margin: 60px auto 80px;
+            padding: 0 20px;
+        }
+
+        .success-card {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .success-icon-wrap {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2e7d32;
+            font-size: 2.4rem;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .order-meta-box {
+            background: var(--cosmic-latte-soft);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 18px 24px;
+            margin: 25px 0;
+            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .meta-label {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .order-items-preview {
+            text-align: left;
+            border-top: 1px solid var(--border-light);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .order-meta-box {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#97A46D">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192x192.png">
+</head>
+
+<body>
+    <nav class="navbar">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html" class="nav-brand"><img src="images/neythu_studio_logo.png" alt="NEYTHU STUDIO" class="nav-logo"></a>
+        <ul class="nav-menu" id="nav-menu">
+            <li class="mobile-menu-header">
+                <span class="mobile-menu-title">NEYTHU STUDIO</span>
+                <button type="button" class="nav-close-btn" id="nav-close-btn" aria-label="Close Navigation Menu">&times;</button>
+            </li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="shop.html" class="nav-link">Shop</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <li><a href="profile.html" class="nav-link">Profile</a></li>
+        </ul>
+    </nav>
+
+    <main class="success-page">
+        <div class="success-card" id="success-card">
+            <div id="loading-state" style="padding: 40px 0;">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.5rem; color: var(--primary-sage-dark);"></i>
+                <h3 style="margin-top: 15px; color: var(--text-dark);">Verifying Your Payment...</h3>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Please wait a moment while we confirm your transaction with Cashfree.</p>
+            </div>
+
+            <div id="confirmed-state" style="display: none;">
+                <div class="success-icon-wrap">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h1 style="font-size: 1.9rem; color: var(--text-dark); margin-bottom: 8px;">Order Confirmed!</h1>
+                <p style="color: var(--text-light); font-size: 0.95rem; max-width: 500px; margin: 0 auto;">
+                    Thank you for supporting slow, sustainable fashion. Your handcrafted crochet order has been placed and payment has been verified.
+                </p>
+
+                <div class="order-meta-box">
+                    <div>
+                        <div class="meta-label">Order Number</div>
+                        <div class="meta-value" id="display-order-id">-</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Payment Status</div>
+                        <div class="meta-value" style="color: #2e7d32;" id="display-payment-status">PAID (Cashfree)</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Amount Paid</div>
+                        <div class="meta-value" id="display-order-total">₹0.00</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Delivery To</div>
+                        <div class="meta-value" id="display-customer-name">-</div>
+                    </div>
+                </div>
+
+                <div class="order-items-preview">
+                    <h3 style="font-size: 1.1rem; color: var(--text-dark); margin-bottom: 12px;">Ordered Pieces</h3>
+                    <div id="display-items-list" style="font-size: 0.9rem; color: var(--text-dark);">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="profile.html#orders" class="btn"><i class="fa-solid fa-box"></i> View in My Orders</a>
+                    <a href="shop.html" class="btn-secondary-outline"><i class="fa-solid fa-arrow-left"></i> Continue Shopping</a>
+                </div>
+            </div>
+
+            <div id="failed-state" style="display: none;">
+                <div class="success-icon-wrap" style="background: #fef2f2; color: #dc2626;">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <h1 style="font-size: 1.8rem; color: var(--text-dark); margin-bottom: 8px;">Payment Incomplete</h1>
+                <p style="color: var(--text-light); font-size: 0.95rem;" id="failed-message">
+                    Your payment could not be confirmed or was cancelled. If money was debited from your account, it will automatically reflect in your profile or be refunded.
+                </p>
+                <div class="action-buttons">
+                    <a href="checkout.html" class="btn"><i class="fa-solid fa-rotate-left"></i> Try Again</a>
+                    <a href="profile.html#orders" class="btn-secondary-outline">Check Order History</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>NEYTHU STUDIO</h2>
+                <p>Handcrafted crochet wear made with love, sustainable natural yarn, and slow-fashion artistry.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Shop Crochet</h3>
+                <ul>
+                    <li><a href="shop.html">All Pieces</a></li>
+                    <li><a href="shop.html?sort=newest">New Arrivals</a></li>
+                    <li><a href="index.html#featured">Featured Pieces</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Studio Policies</h3>
+                <ul>
+                    <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                    <li><a href="return-refund-policy.html">Return & Refund Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 NEYTHU STUDIO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/order-success.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <g fill="none" stroke="#97A46D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.38">
+    <!-- Motif 1: Ball of Yarn with trailing loop -->
+    <g transform="translate(4, 0)">
+      <circle cx="26" cy="27" r="11" />
+      <path d="M 18 23 C 23 18, 30 18, 35 23" />
+      <path d="M 16 28 C 21 24, 31 24, 36 28" />
+      <path d="M 19 33 C 23 36, 29 36, 33 33" />
+      <path d="M 26 16 C 22 22, 22 32, 26 38" />
+      <path d="M 21 18 C 28 22, 28 31, 21 35" />
+      <path d="M 37 31 C 42 36, 48 33, 52 38 C 55 42, 51 46, 46 45" />
+    </g>
+
+    <!-- Motif 2: Crochet Hook -->
+    <g>
+      <line x1="80" y1="36" x2="105" y2="12" />
+      <path d="M 105 12 C 107.5 9.5, 110.5 11, 110.5 13.5 C 110.5 15.5, 108 16, 106 15 L 103.5 16" />
+      <ellipse cx="89" cy="27.5" rx="3.5" ry="1.8" transform="rotate(-44 89 27.5)" />
+    </g>
+
+    <!-- Motif 3: Crochet Granny Flower Stitch -->
+    <g transform="translate(152, 24)">
+      <circle cx="0" cy="0" r="2.2" />
+      <path d="M -1.5 -2.2 C -3.8 -7, 3.8 -7, 1.5 -2.2" />
+      <path d="M -1.5 2.2 C -3.8 7, 3.8 7, 1.5 2.2" />
+      <path d="M -2.2 -1.5 C -7 -3.8, -7 3.8, -2.2 1.5" />
+      <path d="M 2.2 -1.5 C 7 -3.8, 7 3.8, 2.2 1.5" />
+    </g>
+
+    <!-- Motif 4: Chain Stitch (ch) Loops -->
+    <g>
+      <path d="M 14 62 C 12 56, 21 53, 24 58 C 27 63, 19 67, 16 63" />
+      <path d="M 23 60 C 26 55, 34 55, 36 61 C 37 66, 29 69, 26 64" />
+      <path d="M 35 60 C 38 55, 46 56, 47 61 C 48 66, 40 69, 37 64" />
+      <path d="M 8 64 Q 11 62, 14 62" />
+      <path d="M 47 61 Q 52 63, 56 60" />
+    </g>
+
+    <!-- Motif 5: Slip Knot & Thread Loop -->
+    <g>
+      <path d="M 74 65 C 72 59, 80 54, 84 58 C 88 63, 79 69, 75 66 C 72 63, 82 57, 88 61 C 92 63, 95 60, 97 56" />
+      <path d="M 84 68 Q 87 71, 92 70" />
+    </g>
+
+    <!-- Motif 6: Thread Needle with Trailing Wavy Yarn -->
+    <g>
+      <line x1="124" y1="68" x2="144" y2="52" />
+      <ellipse cx="127" cy="65.5" rx="2.5" ry="0.8" transform="rotate(-38 127 65.5)" />
+      <path d="M 125 67 C 119 72, 114 68, 111 71 C 108 74, 110 77, 115 76" />
+      <path d="M 144 52 Q 148 48, 153 50 Q 157 52, 161 48" />
+    </g>
+
+    <!-- Motif 7: Yarn Swirl Knot Loop -->
+    <g>
+      <path d="M 178 58 C 180 52, 189 53, 190 59 C 191 65, 182 67, 178 62 C 176 59, 180 55, 185 56 C 188 57, 191 62, 195 64" />
+    </g>
+
+    <!-- Crochet Stitch Accents ('+' and dots) -->
+    <path d="M 60 18 L 64 18 M 62 16 L 62 20" />
+    <path d="M 126 16 L 130 16 M 128 14 L 128 18" />
+    <path d="M 186 18 L 190 18 M 188 16 L 188 20" />
+    <circle cx="68" cy="42" r="1.1" fill="#97A46D" />
+    <circle cx="106" cy="44" r="1.1" fill="#97A46D" />
+    <circle cx="168" cy="38" r="1.1" fill="#97A46D" />
+    <circle cx="18" cy="46" r="1" fill="#97A46D" />
+  </g>
+</svg>
