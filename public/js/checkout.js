@@ -537,7 +537,11 @@ if (checkoutForm) {
 
         } catch (error) {
             console.error("Error initiating payment:", error);
-            alert("Payment initiation failed: " + error.message);
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                alert(`Cannot reach backend server at ${CONFIG.BACKEND_URL}. If using Render, please check that the service is active and awake.`);
+            } else {
+                alert("Payment initiation failed: " + error.message);
+            }
             submitBtn.disabled = false;
             submitBtn.innerHTML = origText;
         }
