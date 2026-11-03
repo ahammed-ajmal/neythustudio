@@ -432,7 +432,18 @@
                 <!-- Items populated via JS -->
             </div>
 
-            <div class="order-total">
+            <div class="order-summary-breakdown" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-light);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; color: var(--text-dark);">
+                    <span>Items Subtotal</span>
+                    <span id="checkout-subtotal">₹0.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; color: var(--text-dark);">
+                    <span><i class="fa-solid fa-truck-fast" style="color: var(--primary-sage-dark); margin-right: 6px;"></i> Delivery Charge</span>
+                    <span id="checkout-delivery-charge" style="font-weight: 500;">₹80.00</span>
+                </div>
+            </div>
+
+            <div class="order-total" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; font-weight: 600; font-size: 1.2rem; color: var(--text-dark);">
                 <span>Total Amount</span>
                 <span id="checkout-total">₹0.00</span>
             </div>
@@ -482,7 +493,7 @@
     </footer>
 
     <script type="module" src="js/firebase.js"></script>
-    <script type="module" src="js/checkout.js?v=2.1"></script>
+    <script type="module" src="js/checkout.js?v=2.2"></script>
     <script src="js/nav.js"></script>
     <script src="js/pwa.js"></script>
 </body>

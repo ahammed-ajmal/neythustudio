@@ -54,12 +54,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             if (displayItems && Array.isArray(order.items)) {
-                displayItems.innerHTML = order.items.map(item => `
+                let itemsHtml = order.items.map(item => `
                     <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #eee;">
                         <span><strong>${item.name || 'Crochet Piece'}</strong> &times; ${item.quantity || 1}</span>
                         <span>₹${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</span>
                     </div>
                 `).join('');
+
+                const delCharge = order.deliveryCharge !== undefined ? parseFloat(order.deliveryCharge) : 80;
+                itemsHtml += `
+                    <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #eee; color: var(--text-dark);">
+                        <span><i class="fa-solid fa-truck-fast" style="color:var(--primary-sage-dark); margin-right:4px;"></i> Delivery Charge</span>
+                        <span style="font-weight:500;">₹${delCharge.toFixed(2)}</span>
+                    </div>
+                `;
+
+                displayItems.innerHTML = itemsHtml;
             }
         } else {
             // Payment failed or still pending

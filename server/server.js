@@ -106,7 +106,7 @@ function sanitizePhone(phone) {
 // 1. CREATE CASHFREE ORDER
 app.post('/api/create-order', authenticateUser, async (req, res) => {
     try {
-        const { customerDetails, items, totalAmount } = req.body;
+        const { customerDetails, items, totalAmount, subtotal, deliveryCharge } = req.body;
 
         if (!items || !Array.isArray(items) || items.length === 0) {
             return res.status(400).json({ error: 'Cart is empty' });
@@ -175,6 +175,9 @@ app.post('/api/create-order', authenticateUser, async (req, res) => {
         }
 
         // Store order in Firestore under 'orders' with matching ID
+        const shippingCharge = deliveryCharge !== undefined ? Number(deliveryCharge) : 80;
+        const itemsSubtotal = subtotal !== undefined ? Number(subtotal) : (numericAmount - shippingCharge);
+
         const orderDocData = {
             orderId: orderId,
             cfOrderId: cfData.cf_order_id,
@@ -183,6 +186,8 @@ app.post('/api/create-order', authenticateUser, async (req, res) => {
             userEmail: req.user.email || customerEmail,
             customerDetails: customerDetails || {},
             items: items,
+            subtotal: itemsSubtotal,
+            deliveryCharge: shippingCharge,
             totalAmount: numericAmount,
             paymentMethod: 'cashfree',
             paymentStatus: 'PENDING',

@@ -758,7 +758,7 @@ function renderAdminOrders() {
                 <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eee; padding-top:14px; margin-top: 14px; flex-wrap:wrap; gap:12px;">
                     <div>
                         <strong style="font-size: 1.1rem; color: var(--text-dark);">
-                            Total: ₹${order.totalAmount ? Number(order.totalAmount).toFixed(2) : '0.00'}
+                            Total: ₹${order.totalAmount ? Number(order.totalAmount).toFixed(2) : '0.00'} ${order.deliveryCharge ? `<span style="font-size:0.82rem; color:#666; font-weight:normal;">(incl. ₹${Number(order.deliveryCharge).toFixed(0)} delivery)</span>` : ''}
                         </strong>
                     </div>
 

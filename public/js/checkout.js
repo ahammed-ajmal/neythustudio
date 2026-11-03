@@ -2,7 +2,9 @@ import { auth, db } from './firebase.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { clearCart, getCartTotal } from './cart.js';
-import { CONFIG } from './config.js?v=2.1';
+import { CONFIG } from './config.js?v=2.2';
+
+const DELIVERY_CHARGE = 80;
 
 const checkoutForm = document.getElementById('checkout-form');
 const zipInput = document.getElementById('zip');
@@ -125,7 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
-    const total = getCartTotal();
+    const subtotal = getCartTotal();
+    const total = subtotal + DELIVERY_CHARGE;
+
+    const subtotalEl = document.getElementById('checkout-subtotal');
+    if (subtotalEl) subtotalEl.innerText = '₹' + subtotal.toFixed(2);
+
+    const deliveryEl = document.getElementById('checkout-delivery-charge');
+    if (deliveryEl) deliveryEl.innerText = '₹' + DELIVERY_CHARGE.toFixed(2);
+
     const totalEl = document.getElementById('checkout-total');
     if (totalEl) totalEl.innerText = '₹' + total.toFixed(2);
     const btnTotalEl = document.getElementById('btn-total-amount');
@@ -393,7 +403,8 @@ if (checkoutForm) {
         const city = cityInput ? cityInput.value.trim() : '';
         const state = stateInput ? stateInput.value.trim() : '';
         const cart = JSON.parse(localStorage.getItem('neythu_cart') || localStorage.getItem('jasmnl_cart') || '[]');
-        const total = getCartTotal();
+        const subtotal = getCartTotal();
+        const total = subtotal + DELIVERY_CHARGE;
 
         if (!houseNo) {
             alert("Please enter your House / Flat No.");
@@ -471,6 +482,8 @@ if (checkoutForm) {
                 body: JSON.stringify({
                     customerDetails: customerPayload,
                     items: cart,
+                    subtotal: subtotal,
+                    deliveryCharge: DELIVERY_CHARGE,
                     totalAmount: total
                 })
             });
